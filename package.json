@@ -67,7 +67,6 @@
     "@tiptap/extension-text-align": "^2.2.4",
     "@tiptap/extension-typography": "^2.2.4",
     "@tiptap/extension-underline": "^2.2.4",
-    "@tiptap/extension-youtube": "^2.5.6",
     "@tiptap/pm": "^2.2.4",
     "@tiptap/starter-kit": "^2.2.4",
     "@tiptap/suggestion": "^2.2.4"
@@ -102,12 +101,12 @@
   "publishConfig": {
     "access": "public"
   },
-  "packageManager": "pnpm@8.12.0",
+  "packageManager": "pnpm@9.1.4",
   "optionalDependencies": {
     "@tiptap-pro/extension-emoji": "^2.7.5",
     "@tiptap-pro/extension-invisible-characters": "^2.7.5",
-    "@tiptap-pro/extension-mathematics": "^2.7.5",
     "@tiptap-pro/extension-unique-id": "^2.7.5",
+    "@tiptap-pro/extension-mathematics": "^2.7.5",
     "katex": "^0.16.11"
   }
 }
