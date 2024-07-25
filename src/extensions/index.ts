@@ -18,7 +18,6 @@ import invisibleCharacters from "./invisible-characters";
 import emoji, { type EmojiProps } from "./emoji";
 import uniqueId, { type UniqueIDProps } from "./unique-id";
 import mathematics from "./mathematics";
-import youtube from "./youtube";
 type ExtensionGroup = "mark" | "node" | "editor";
 
 export const extensionsGroups: { group: ExtensionGroup; label: string }[] = [
@@ -61,7 +60,6 @@ export const extensionsMeta: ExtensionMeta[] = [
   image,
   task,
   textAlign,
-  youtube,
   // editor
   placeholder,
   focus,
