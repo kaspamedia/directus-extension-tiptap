@@ -5,7 +5,9 @@ const extension: ExtensionMeta = {
   title: "Mathematics",
   package: "@tiptap-pro/extension-mathematics",
   group: "editor",
-  defaults: {},
+  defaults: {
+    regex: "/\\$\\$([^\\$]*)\\$\\$/gi",
+  },
   options: [],
   load: async () => {
     const { Mathematics } = await import("@tiptap-pro/extension-mathematics");
