@@ -74,6 +74,15 @@ export const Image = Node.create<ImageOptions>({
       title: {
         default: null,
       },
+      extended: {
+        default: false,
+        parseHTML: (element) => element.getAttribute("data-extended"),
+        renderHTML: (attributes) => {
+          return {
+            class: `${attributes.extended ? "extended-image" : ""}`,
+          };
+        },
+      },
     };
   },
 

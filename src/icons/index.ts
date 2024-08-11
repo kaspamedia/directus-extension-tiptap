@@ -46,6 +46,7 @@ import TextWrap from "./text-wrap.vue";
 import Underline from "./underline.vue";
 import Unlink from "./unlink.vue";
 import Video from "./video.vue";
+import ExtendImage from "./extend-image.vue";
 const icons = {
   AlignCenter,
   AlignJustify,
@@ -95,6 +96,7 @@ const icons = {
   Underline,
   Unlink,
   Video,
+  ExtendImage,
 };
 
 export default icons;

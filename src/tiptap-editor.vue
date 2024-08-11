@@ -42,7 +42,6 @@
         <icons.Strikethrough class="icon" />
       </v-chip>
     </bubble-menu>
-
     <div class="tiptap-editor__toolbar">
       <!-- marks -->
 
@@ -143,7 +142,18 @@
       </v-button>
 
       <div class="divider" />
+      <v-button
+        v-tooltip="'Extend Image'"
+        small
+        icon
+        :disabled="props.disabled || !editor.isActive('image')"
+        :active="editor.isActive('image', { extended: true })"
+        @click="editor.commands.updateAttributes('image', { extended: !editor.isActive('image', { extended: true }) })"
+      >
+        <icons.ExtendImage />
+      </v-button>
 
+      <div class="divider" />
       <!-- nodes -->
 
       <v-menu v-if="editorExtensions.includes('heading')" show-arrow placement="bottom-start">
@@ -681,6 +691,9 @@
 </style>
 
 <style lang="scss">
+.extended-image {
+  border: #0f00ff 2px dashed;
+}
 .tiptap-editor {
   font-family: var(--theme--fonts--sans--font-family);
   border: var(--theme--border-width) solid var(--theme--form--field--input--border-color);
@@ -1034,7 +1047,6 @@ const alignOptions = [
 const editorInitiated = ref<boolean>(false);
 
 const extensions = await loadExtensions(props);
-
 const editor = new Editor({
   editable: !props.disabled,
   content: props.value,
