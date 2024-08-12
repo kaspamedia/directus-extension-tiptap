@@ -143,16 +143,31 @@
 
       <div class="divider" />
       <v-button
-        v-tooltip="'Extend Image'"
+        v-tooltip="'Extend Image Fully'"
         small
         icon
         :disabled="props.disabled || !editor.isActive('image')"
-        :active="editor.isActive('image', { extended: true })"
-        @click="editor.commands.updateAttributes('image', { extended: !editor.isActive('image', { extended: true }) })"
+        :active="editor.isActive('image', { extended: 1 })"
+        @click="
+          editor.commands.updateAttributes('image', {
+            extended: editor.isActive('image', { extended: 1 }) ? false : 1,
+          })
+        "
       >
         <icons.ExtendImage />
       </v-button>
-
+      <v-button
+        v-tooltip="'Extend Image to Half Screen Width'"
+        small
+        icon
+        :disabled="props.disabled || !editor.isActive('image')"
+        :active="editor.isActive('image', { extended: 2 })"
+        @click="
+          editor.commands.updateAttributes('image', { extended: editor.isActive('image', { extended: 2 }) ? false : 2 })
+        "
+      >
+        <icons.ExtendImage />
+      </v-button>
       <div class="divider" />
       <!-- nodes -->
 
@@ -691,8 +706,11 @@
 </style>
 
 <style lang="scss">
-.extended-image {
+.extended-image_full {
   border: #0f00ff 2px dashed;
+}
+.extended-image_half {
+  border: #00ffd0 2px dashed;
 }
 .tiptap-editor {
   font-family: var(--theme--fonts--sans--font-family);

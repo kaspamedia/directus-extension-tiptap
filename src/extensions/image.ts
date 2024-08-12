@@ -75,11 +75,13 @@ export const Image = Node.create<ImageOptions>({
         default: null,
       },
       extended: {
-        default: false,
+        // null, 1 -> full, 2 -> half
+        default: null,
         parseHTML: (element) => element.getAttribute("data-extended"),
         renderHTML: (attributes) => {
           return {
-            class: `${attributes.extended ? "extended-image" : ""}`,
+            class: `${attributes.extended === 1 ? "extended-image_full" : ""}${attributes.extended === 2 ? "extended-image_half" : ""}`,
+            "data-extended": attributes.extended,
           };
         },
       },
@@ -97,6 +99,7 @@ export const Image = Node.create<ImageOptions>({
   renderHTML({ HTMLAttributes }) {
     const id = HTMLAttributes["data-directus-id"];
     const filename = HTMLAttributes["data-directus-filename"];
+    console.log(HTMLAttributes);
     const src = this.options.publicURL + id + (filename ? "/" + filename : "");
     return ["img", mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, { src })];
   },
@@ -106,6 +109,8 @@ export const Image = Node.create<ImageOptions>({
       setImage:
         (options) =>
         ({ commands }) => {
+          console.log("setImage has run");
+          console.log(options);
           return commands.insertContent({
             type: this.name,
             attrs: options,
