@@ -168,6 +168,16 @@
       >
         <icons.ExtendImage />
       </v-button>
+      <v-button
+        v-tooltip="'Add image caption'"
+        small
+        icon
+        :disabled="props.disabled || !editor.isActive('image')"
+        :active="!editor.isActive('image', { caption: null })"
+        @click="addImageCaption()"
+      >
+        <icons.ImageDescription />
+      </v-button>
       <div class="divider" />
       <!-- nodes -->
 
@@ -1004,6 +1014,7 @@ import icons from "./icons";
 import { useImage } from "./composables/image";
 import uniqueId from "./extensions/unique-id";
 import emoji from "./extensions/emoji";
+import ImageDescription from "./icons/image-description.vue";
 
 const { t } = useI18n({ messages });
 
@@ -1143,6 +1154,12 @@ const addVideo = () => {
       width: 560,
       height: 315,
     });
+  }
+};
+const addImageCaption = () => {
+  const caption = prompt("Enter Image Caption");
+  if (caption !== null) {
+    editor.commands.updateAttributes("image", { caption: caption });
   }
 };
 </script>

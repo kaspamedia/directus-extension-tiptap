@@ -47,6 +47,7 @@ import Underline from "./underline.vue";
 import Unlink from "./unlink.vue";
 import Video from "./video.vue";
 import ExtendImage from "./extend-image.vue";
+import ImageDescription from "./image-description.vue";
 const icons = {
   AlignCenter,
   AlignJustify,
@@ -97,6 +98,7 @@ const icons = {
   Unlink,
   Video,
   ExtendImage,
+  ImageDescription,
 };
 
 export default icons;

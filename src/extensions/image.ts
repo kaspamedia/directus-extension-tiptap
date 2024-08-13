@@ -74,6 +74,15 @@ export const Image = Node.create<ImageOptions>({
       title: {
         default: null,
       },
+      caption: {
+        default: null,
+        parseHTML: (element) => element.getAttribute("data-caption"),
+        renderHTML: (attributes) => {
+          return {
+            "data-caption": attributes.caption,
+          };
+        },
+      },
       extended: {
         // null, 1 -> full, 2 -> half
         default: null,
@@ -109,8 +118,6 @@ export const Image = Node.create<ImageOptions>({
       setImage:
         (options) =>
         ({ commands }) => {
-          console.log("setImage has run");
-          console.log(options);
           return commands.insertContent({
             type: this.name,
             attrs: options,
