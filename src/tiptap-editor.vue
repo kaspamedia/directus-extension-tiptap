@@ -1,5 +1,5 @@
 <template>
-  <div class="tiptap-editor" :class="{ disabled: props.disabled }">
+  <div class="tiptap-editor" :class="{ disabled: props.disabled, 'full-screen': isFullScreen }">
     <bubble-menu class="tiptap-editor__bubble" :editor="editor" :tippy-options="{ duration: 100 }">
       <v-chip
         v-if="editorExtensions.includes('bold') && editor.can().toggleBold()"
@@ -42,7 +42,12 @@
         <icons.Strikethrough class="icon" />
       </v-chip>
     </bubble-menu>
-    <div class="tiptap-editor__toolbar">
+    <div
+      class="tiptap-editor__toolbar"
+      :class="{
+        'no-shrink': isFullScreen,
+      }"
+    >
       <!-- marks -->
 
       <v-button
@@ -177,6 +182,24 @@
         @click="addImageCaption()"
       >
         <icons.ImageDescription />
+      </v-button>
+      <v-button
+        v-tooltip="'Set heading ID'"
+        small
+        icon
+        :disabled="props.disabled || !editor.isActive('heading')"
+        @click="setHeadingID()"
+      >
+        <icons.Fingerprint />
+      </v-button>
+      <v-button
+        v-tooltip="'Copy heading hyperlink target'"
+        small
+        icon
+        :disabled="props.disabled || !editor.isActive('heading')"
+        @click="clipboard('#' + editor.getAttributes('heading').id)"
+      >
+        <icons.ScanText />
       </v-button>
       <div class="divider" />
       <!-- nodes -->
@@ -586,7 +609,9 @@
       <div class="spacer" />
 
       <!-- history -->
-
+      <v-button v-tooltip="'Full Screen'" small icon :active="isFullScreen" @click="toggleFullScreen()">
+        <icons.FullScreen />
+      </v-button>
       <v-button
         v-if="editorExtensions.includes('history')"
         v-tooltip="t('wysiwyg_options.undo') + ' - ' + translateShortcut(['meta', 'z'])"
@@ -610,9 +635,22 @@
       </v-button>
     </div>
 
-    <editor-content class="tiptap-editor__content" :editor="editor" />
+    <editor-content
+      class="tiptap-editor__content"
+      :editor="editor"
+      :class="{
+        'limited-height': !isFullScreen,
+        'full-screen-editor': isFullScreen,
+      }"
+    />
 
-    <div class="tiptap-editor__info" v-if="editorExtensions.includes('characterCount')">
+    <div
+      class="tiptap-editor__info"
+      v-if="editorExtensions.includes('characterCount')"
+      :class="{
+        'no-shrink': isFullScreen,
+      }"
+    >
       <div v-if="editorExtensions.includes('characterCount')">
         <template v-if="!editor.storage.characterCount.characters() && !editor.storage.characterCount.words()">
           ∅
@@ -722,6 +760,30 @@
 .extended-image_half {
   border: #00ffd0 2px dashed;
 }
+.limited-height {
+  height: 50rem;
+  overflow-y: auto;
+}
+.full-screen-editor {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+.no-shrink {
+  flex-shrink: 0;
+}
+.full-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
+  height: 100vh;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  background: var(--theme--form--field--input--background-subdued); /* Just to visualize the extent */
+}
 .tiptap-editor {
   font-family: var(--theme--fonts--sans--font-family);
   border: var(--theme--border-width) solid var(--theme--form--field--input--border-color);
@@ -759,7 +821,7 @@
     padding: 0 8px;
     background-color: var(--theme--form--field--input--background-subdued);
     border-top: var(--theme--border-width) solid var(--theme--form--field--input--border-color);
-    color: var(--theme--form--field--input--border-color);
+    color: var(--theme--form--field--input--foreground-subdued);
     font-family: var(--theme--fonts--monospace--font-family);
     font-size: 12px;
   }
@@ -839,7 +901,6 @@
   &__content {
     font-family: var(--theme--font-family-sans-serif);
     font-weight: 400;
-
     .ProseMirror {
       min-height: 230px;
       margin: 20px 0;
@@ -1014,7 +1075,6 @@ import icons from "./icons";
 import { useImage } from "./composables/image";
 import uniqueId from "./extensions/unique-id";
 import emoji from "./extensions/emoji";
-import ImageDescription from "./icons/image-description.vue";
 
 const { t } = useI18n({ messages });
 
@@ -1161,5 +1221,21 @@ const addImageCaption = () => {
   if (caption !== null) {
     editor.commands.updateAttributes("image", { caption: caption });
   }
+};
+const setHeadingID = () => {
+  const id = prompt("Enter desired heading ID (preferably use snake-case)");
+  if (id !== null) {
+    editor.commands.updateAttributes("heading", { id: id });
+  }
+};
+function clipboard(value: string) {
+  navigator.clipboard.writeText(value);
+}
+</script>
+<script lang="ts">
+const isFullScreen = ref(false);
+const toggleFullScreen = () => {
+  console.log(isFullScreen);
+  isFullScreen.value = !isFullScreen.value;
 };
 </script>

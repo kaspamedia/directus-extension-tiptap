@@ -48,6 +48,9 @@ import Unlink from "./unlink.vue";
 import Video from "./video.vue";
 import ExtendImage from "./extend-image.vue";
 import ImageDescription from "./image-description.vue";
+import FullScreen from "./full-screen.vue";
+import Fingerprint from "./fingerprint.vue";
+import ScanText from "./scan-text.vue";
 const icons = {
   AlignCenter,
   AlignJustify,
@@ -99,6 +102,9 @@ const icons = {
   Video,
   ExtendImage,
   ImageDescription,
+  FullScreen,
+  Fingerprint,
+  ScanText,
 };
 
 export default icons;

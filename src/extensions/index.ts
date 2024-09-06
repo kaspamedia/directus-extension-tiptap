@@ -73,7 +73,6 @@ export const extensionsMeta: ExtensionMeta[] = [
   uniqueId,
   mathematics,
 ];
-
 export async function loadExtensions(props: ExtensionsProps): Promise<Extensions> {
   const extensions: Extensions = [StarterKit];
 
