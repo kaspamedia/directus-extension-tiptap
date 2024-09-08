@@ -201,6 +201,15 @@
       >
         <icons.ScanText />
       </v-button>
+      <v-button
+        v-tooltip="'Copy full link to the heading'"
+        small
+        icon
+        :disabled="props.disabled || !editor.isActive('heading')"
+        @click="clipboard('https://kasmedia.com/article/' + getArticleId() + '#' + editor.getAttributes('heading').id)"
+      >
+        <icons.ScanQRCode />
+      </v-button>
       <div class="divider" />
       <!-- nodes -->
 
@@ -1230,6 +1239,9 @@ const setHeadingID = () => {
 };
 function clipboard(value: string) {
   navigator.clipboard.writeText(value);
+}
+function getArticleId() {
+  return window.location.pathname.split("/").pop();
 }
 </script>
 <script lang="ts">
