@@ -71,7 +71,7 @@ export const extensionsMeta: ExtensionMeta[] = [
   invisibleCharacters,
   emoji,
   uniqueId,
-  mathematics,
+  //mathematics,
 ];
 export async function loadExtensions(props: ExtensionsProps): Promise<Extensions> {
   const extensions: Extensions = [StarterKit];

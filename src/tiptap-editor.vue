@@ -779,7 +779,7 @@
   right: 0;
   overflow: hidden;
   height: 100vh;
-  z-index: 1000;
+  z-index: 100;
   display: flex;
   flex-direction: column;
   background: var(--theme--form--field--input--background-subdued); /* Just to visualize the extent */
