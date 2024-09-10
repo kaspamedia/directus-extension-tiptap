@@ -1247,7 +1247,6 @@ function getArticleId() {
 <script lang="ts">
 const isFullScreen = ref(false);
 const toggleFullScreen = () => {
-  console.log(isFullScreen);
   isFullScreen.value = !isFullScreen.value;
 };
 </script>

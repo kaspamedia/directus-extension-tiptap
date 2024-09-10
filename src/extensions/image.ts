@@ -108,7 +108,6 @@ export const Image = Node.create<ImageOptions>({
   renderHTML({ HTMLAttributes }) {
     const id = HTMLAttributes["data-directus-id"];
     const filename = HTMLAttributes["data-directus-filename"];
-    console.log(HTMLAttributes);
     const src = this.options.publicURL + id + (filename ? "/" + filename : "");
     return ["img", mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, { src })];
   },
