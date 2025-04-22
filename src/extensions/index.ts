@@ -19,6 +19,8 @@ import emoji, { type EmojiProps } from "./emoji";
 import uniqueId, { type UniqueIDProps } from "./unique-id";
 import mathematics from "./mathematics";
 import youtube from "./youtube";
+import imageCollage from "./image-collage";
+
 type ExtensionGroup = "mark" | "node" | "editor";
 
 export const extensionsGroups: { group: ExtensionGroup; label: string }[] = [
@@ -62,6 +64,7 @@ export const extensionsMeta: ExtensionMeta[] = [
   task,
   textAlign,
   youtube,
+  imageCollage,
   // editor
   placeholder,
   focus,

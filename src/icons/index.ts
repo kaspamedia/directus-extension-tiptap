@@ -52,6 +52,8 @@ import FullScreen from "./full-screen.vue";
 import Fingerprint from "./fingerprint.vue";
 import ScanText from "./scan-text.vue";
 import ScanQRCode from "./scan-qr-code.vue";
+import ImageCollage from "./image-collage.vue";
+
 const icons = {
   AlignCenter,
   AlignJustify,
@@ -107,6 +109,7 @@ const icons = {
   Fingerprint,
   ScanText,
   ScanQRCode,
+  ImageCollage,
 };
 
 export default icons;

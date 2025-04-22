@@ -614,6 +614,16 @@
       >
         <icons.Video />
       </v-button>
+      <v-button
+        v-tooltip="'Add Image Collage'"
+        small
+        icon
+        :disabled="props.disabled"
+        @click="addImageCollage()"
+        v-if="editorExtensions.includes('imageCollage')"
+      >
+        <icons.ImageCollage />
+      </v-button>
 
       <div class="spacer" />
 
@@ -792,6 +802,24 @@
   display: flex;
   flex-direction: column;
   background: var(--theme--form--field--input--background-subdued); /* Just to visualize the extent */
+}
+/* Image Collage styling */
+image-collage {
+  display: block;
+  position: relative;
+  border: #ff6b00 2px dashed;
+  padding: 20px;
+  margin: 10px 0;
+  border-radius: 4px;
+  background-color: rgba(255, 107, 0, 0.1);
+  text-align: center;
+}
+image-collage::after {
+  content: "Image Collage ID: " attr(id);
+  color: #ff6b00;
+  font-size: 14px;
+  font-weight: 500;
+  pointer-events: none;
 }
 .tiptap-editor {
   font-family: var(--theme--fonts--sans--font-family);
@@ -1243,6 +1271,16 @@ function clipboard(value: string) {
 function getArticleId() {
   return window.location.pathname.split("/").pop();
 }
+const addImageCollage = () => {
+  const id = prompt("Enter Image Collage ID");
+  if (id === null || id.trim() === '') {
+    return;
+  }
+  
+  editor.commands.setImageCollage({
+    id: id
+  });
+};
 </script>
 <script lang="ts">
 const isFullScreen = ref(false);
